@@ -1,5 +1,10 @@
-#add-movie-container {
+#add-gif-container {
     width: 50%
+}
+
+#gif-container .btn {
+  text-transform: capitalize;
+  margin-right: 5px;
 }
 
 footer {
@@ -22,3 +27,4 @@ footer {
     display: block;
     margin: 0 auto;
 }
+
