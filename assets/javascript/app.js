@@ -22,11 +22,10 @@ $( document ).ready(function () {
     }
 
     function addGif() {
-        if (topic.indexOf($addGif.val()) === -1) {
+        if (topic.indexOf($addGif.val()) === -1 && $addGif.val() != '') {
             topic.push($addGif.val());
             var newGif = $('<button>');
             newGif.addClass('btn btn-primary');
-            newGif.
             newGif.text($addGif.val());
             $gifContainer.append(newGif);
         } 
