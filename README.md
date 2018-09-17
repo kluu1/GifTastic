@@ -1,5 +1,5 @@
 # GifTastic-App
-Live Demo: 
+Live Demo: https://kluu1.github.io/GifTastic-App/
 - This is a fun and simple giffy app using Giphy API's
 - Users can click on one of the topic button to display the still gifs
 - When the user clicks one of the still GIPHY, the gif will animate, vice versa.
