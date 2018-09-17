@@ -8,7 +8,7 @@ $( document ).ready(function () {
     var $imgContainer = $('#img-container');
     var $numOfImg = $('#num-of-images');
     var $imgs;
-    var $imgRating;
+    var $imgsRating;
     var $imgsWithIds;
 
     // An array of topics
@@ -19,7 +19,7 @@ $( document ).ready(function () {
         
         // Create boxes for images (10 by default)
         createImgBox();
-        $('.thumbnail').hide();
+        $('.panel').hide();
         getImgBox();
 
         // Sets numImages to the dropdown selection
@@ -38,7 +38,7 @@ $( document ).ready(function () {
     // Gets current images from DOM and filter ones with id
     function getImgBox() {
         $imgs = $('img');
-        $imgRating = $('.rating');
+        $imgsRating = $('.rating');
         $imgsWithIds = $imgs.filter(function (index, element) {
             return $(element).attr('id');
         });
@@ -78,29 +78,39 @@ $( document ).ready(function () {
 
         for (i = 0; i < numImages; i++) {
             var newBoxDiv = $('<div>');
-            var newThumbnail = $('<div>');
+            var newPanel = $('<div>');
+            var newPanelBody = $('<div>');
+            var newPanelHeading = $('<div>');
             var newImgContent = $('<img>');
             var newID = 'img-'+i
     
             newBoxDiv.addClass('col-sm-6 col-md-4');
-            newThumbnail.addClass('thumbnail');
+            newPanel.addClass('panel panel-default');
+
+
             newImgContent.attr({
                 'id': newID,
                 'data-img': i
             });
 
             $imgContainer.append(newBoxDiv);
-            newBoxDiv.append(newThumbnail);
-            newThumbnail.append(newImgContent);
+            newBoxDiv.append(newPanel);
+            newPanel.append(newPanelHeading);
+            newPanel.append(newPanelBody);
+            newPanelBody.addClass('panel-body');
+            newPanelHeading.addClass('panel-heading');
+
+            newPanelBody.append(newImgContent);
+
             rating = '<p>Rating: <span class="rating"></span></p>';
-            newThumbnail.append(rating);
+            newPanelHeading.append(rating);
         }
         getImgBox();
     }
 
     // Display Gifs by making Ajax call to the GIPHY API
     function displayGifs() {
-        $('.thumbnail').show();
+        $('.panel').show();
         createImgBox();
         var title = $(this).attr('data-topic').split(' ').join('+');
         var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=D41gIqTe2XuLnlhr8V93REZDOSxjwvCx&q=' + title + '&limit='+numImages+'&offset=0&rating=G&lang=en';
@@ -114,12 +124,12 @@ $( document ).ready(function () {
                 var animate = res.data[i].images.downsized.url;
                 var rating = res.data[i].rating.toUpperCase();;
                 var img = $($imgsWithIds[i]);
-                var imgRating = $($imgRating[i]);
+                var imgsRating = $($imgsRating[i]);
                 img.attr('src', still);
                 img.attr('data-still', still);
                 img.attr('data-state', 'still');
                 img.attr('data-animate', animate);
-                imgRating.text(rating);
+                imgsRating.text(rating);
             }
         }).catch(function(err) {
             console.log(err);
