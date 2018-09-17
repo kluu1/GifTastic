@@ -28,6 +28,11 @@ footer {
     margin: 0 auto;
 }
 
+.thumbnail p {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
 #images-per-page {
     margin-top: 20px;
 }

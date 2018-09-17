@@ -8,6 +8,7 @@ $( document ).ready(function () {
     var $imgContainer = $('#img-container');
     var $numOfImg = $('#num-of-images');
     var $imgs;
+    var $imgRating;
     var $imgsWithIds;
 
     // An array of topics
@@ -37,6 +38,7 @@ $( document ).ready(function () {
     // Gets current images from DOM and filter ones with id
     function getImgBox() {
         $imgs = $('img');
+        $imgRating = $('.rating');
         $imgsWithIds = $imgs.filter(function (index, element) {
             return $(element).attr('id');
         });
@@ -90,6 +92,8 @@ $( document ).ready(function () {
             $imgContainer.append(newBoxDiv);
             newBoxDiv.append(newThumbnail);
             newThumbnail.append(newImgContent);
+            rating = '<p>Rating: <span class="rating"></span></p>';
+            newThumbnail.append(rating);
         }
         getImgBox();
     }
@@ -108,11 +112,14 @@ $( document ).ready(function () {
             for (i = 0; i < numImages; i++) {
                 var still = res.data[i].images.downsized_still.url;
                 var animate = res.data[i].images.downsized.url;
+                var rating = res.data[i].rating.toUpperCase();;
                 var img = $($imgsWithIds[i]);
+                var imgRating = $($imgRating[i]);
                 img.attr('src', still);
                 img.attr('data-still', still);
                 img.attr('data-state', 'still');
                 img.attr('data-animate', animate);
+                imgRating.text(rating);
             }
         }).catch(function(err) {
             console.log(err);
