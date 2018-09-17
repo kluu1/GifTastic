@@ -1,98 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
-        <link rel="stylesheet" href="assets/css/style.css">
-        <title>Giffy App</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>GifTastic</title>
+</head>
 
-    <body>
+<body>
 
-        <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">The Giffy App</a>
-            </div>
-        </nav> <!-- /nav-bar -->
-    
-        <div class="container">
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">GifTastic</a>
+        </div>
+    </nav> <!-- /nav-bar -->
 
-            <div class="jumbotron">
-                <h1>The Giffy App</h1><hr>
-                <div id="gif-container"></div>
-                <hr>
-                <div class="input-group" id="add-gif-container">
-                    <input id ="gif-input" type="text" class="form-control" placeholder="Enter a gif to add...">
-                    <span class="input-group-btn">
-                        <button id="add-gif-btn" class="btn btn-primary" type="button">Add Gif</button>
-                    </span>
-                </div><!-- /input-group -->
-            </div>
+    <div class="container">
 
-            <div class="row">
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-01" src="./assets/images/placeholder.svg" alt="Gif-01" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-02" src="./assets/images/placeholder.svg" alt="Gif-02" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-03" src="./assets/images/placeholder.svg" alt="Gif-03" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-04" src="./assets/images/placeholder.svg" alt="Gif-04" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-05" src="./assets/images/placeholder.svg" alt="Gif-05" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-06" src="./assets/images/placeholder.svg" alt="Gif-06" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-07" src="./assets/images/placeholder.svg" alt="Gif-07" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-08" src="./assets/images/placeholder.svg" alt="Gif-08" class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-09" src="./assets/images/placeholder.svg" alt="Gif-09"class="images">
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img id="img-10" src="./assets/images/placeholder.svg" alt="Gif-10"class="images">
-                    </div>
-                </div>
-            </div> <!-- /thumbnail row -->
+        <div class="jumbotron">
 
-        </div> <!-- /container -->
+            <h1>GifTastic</h1>
+            <h3>Select a topic below to display gifs!</h3><hr>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="assets/javascript/app.js"></script>
+            <div id="gif-container"></div><hr>
 
-        <footer>
-            <hr>
-            <div>Copyright &copy; 2018 Kevin Luu </div> 
-        </footer>
+            <div class="input-group" id="add-gif-container">
+                <input id="gif-input" type="text" class="form-control" placeholder="Enter a topic to add...">
+                <span class="input-group-btn">
+                    <button id="add-gif-btn" class="btn btn-primary" type="button">Add Gif</button>
+                </span>
+            </div><!-- /input-group -->
 
-    </body>
+            <div id="images-per-page">
+                <span>Number of images per page: </span>
+                <select id="num-of-images">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+            </div> <!-- /images per page -->
+            
+        </div> <!-- /jumbotron -->
+
+        <div class="row" id="img-container"></div> 
+
+    </div> <!-- /container -->
+
+    <footer>
+        <hr><div>Copyright &copy; 2018 Kevin Luu </div> 
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
+
+</body>
 </html>
