@@ -80,12 +80,12 @@ $( document ).ready(function () {
             var newBoxDiv = $('<div>');
             var newPanel = $('<div>');
             var newPanelBody = $('<div>');
-            var newPanelHeading = $('<div>');
+            var newPanelFooter = $('<div>');
             var newImgContent = $('<img>');
-            var newID = 'img-'+i
+            var newID = 'img-'+i;
     
             newBoxDiv.addClass('col-sm-6 col-md-4');
-            newPanel.addClass('panel panel-default');
+            newPanel.addClass('panel panel-primary');
 
 
             newImgContent.attr({
@@ -95,15 +95,18 @@ $( document ).ready(function () {
 
             $imgContainer.append(newBoxDiv);
             newBoxDiv.append(newPanel);
-            newPanel.append(newPanelHeading);
+
+            
             newPanel.append(newPanelBody);
+            newPanel.append(newPanelFooter);
+            
             newPanelBody.addClass('panel-body');
-            newPanelHeading.addClass('panel-heading');
+            newPanelFooter.addClass('panel-footer p-footer');
 
             newPanelBody.append(newImgContent);
 
             rating = '<p>Rating: <span class="rating"></span></p>';
-            newPanelHeading.append(rating);
+            newPanelFooter.append(rating);
         }
         getImgBox();
     }
