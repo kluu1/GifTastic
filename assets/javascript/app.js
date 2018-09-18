@@ -120,8 +120,8 @@ $( document ).ready(function () {
             method: 'GET'
         }).then(function(res) {
             for (i = 0; i < numImages; i++) {
-                var still = res.data[i].images.downsized_still.url;
-                var animate = res.data[i].images.downsized.url;
+                var still = res.data[i].images.fixed_height_still.url;
+                var animate = res.data[i].images.fixed_height.url;
                 var rating = res.data[i].rating.toUpperCase();;
                 var img = $($imgsWithIds[i]);
                 var imgsRating = $($imgsRating[i]);
