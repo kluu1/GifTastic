@@ -17,6 +17,11 @@ footer {
     padding: 20px;
 }
 
+.panel-heading {
+    text-transform: capitalize;
+    height: 60px;
+}
+
 .panel-body {
     height: 250px;
     position: relative;
@@ -31,9 +36,4 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-}
-
-.p-footer {
-    background-color: #428bca;
-    color: #fff;
 }

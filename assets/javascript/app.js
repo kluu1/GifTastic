@@ -8,6 +8,7 @@ $( document ).ready(function () {
     var $imgContainer = $('#img-container');
     var $numOfImg = $('#num-of-images');
     var $imgs;
+    var $imgsTitle;
     var $imgsRating;
     var $imgsWithIds;
 
@@ -39,6 +40,7 @@ $( document ).ready(function () {
     function getImgBox() {
         $imgs = $('img');
         $imgsRating = $('.rating');
+        $imgsTitle = $('.title');
         $imgsWithIds = $imgs.filter(function (index, element) {
             return $(element).attr('id');
         });
@@ -71,7 +73,7 @@ $( document ).ready(function () {
         }  
     }
 
-    // Creates divs that contains imgs with id, class, attr
+    // Creates divs that contains panels, imgs with id, class, attr
     function createImgBox() {
         
         $imgContainer.empty();
@@ -79,35 +81,30 @@ $( document ).ready(function () {
         for (i = 0; i < numImages; i++) {
             var newBoxDiv = $('<div>');
             var newPanel = $('<div>');
+            var newPanelHeading = $('<div>');
             var newPanelBody = $('<div>');
             var newPanelFooter = $('<div>');
             var newImgContent = $('<img>');
             var newID = 'img-'+i;
+            var title = '<p><span class="title"></span></p>';
+            var rating = '<p>Rating: <span class="rating"></span></p>';
     
             newBoxDiv.addClass('col-sm-6 col-md-4');
             newPanel.addClass('panel panel-primary');
-
-
-            newImgContent.attr({
-                'id': newID,
-                'data-img': i
-            });
-
+            newImgContent.attr({ 'id': newID, 'data-img': i });
             $imgContainer.append(newBoxDiv);
             newBoxDiv.append(newPanel);
-
-            
+            newPanel.append(newPanelHeading);
             newPanel.append(newPanelBody);
             newPanel.append(newPanelFooter);
-            
+            newPanelHeading.addClass('panel-heading');
             newPanelBody.addClass('panel-body');
-            newPanelFooter.addClass('panel-footer p-footer');
-
+            newPanelFooter.addClass('panel-footer');
             newPanelBody.append(newImgContent);
-
-            rating = '<p>Rating: <span class="rating"></span></p>';
+            newPanelHeading.append(title);
             newPanelFooter.append(rating);
         }
+
         getImgBox();
     }
 
@@ -125,13 +122,16 @@ $( document ).ready(function () {
             for (i = 0; i < numImages; i++) {
                 var still = res.data[i].images.fixed_height_still.url;
                 var animate = res.data[i].images.fixed_height.url;
-                var rating = res.data[i].rating.toUpperCase();;
+                var title = res.data[i].title;
+                var rating = res.data[i].rating.toUpperCase();
                 var img = $($imgsWithIds[i]);
+                var imgsTitle = $($imgsTitle[i]);
                 var imgsRating = $($imgsRating[i]);
                 img.attr('src', still);
                 img.attr('data-still', still);
                 img.attr('data-state', 'still');
                 img.attr('data-animate', animate);
+                imgsTitle.text(title)
                 imgsRating.text(rating);
             }
         }).catch(function(err) {
