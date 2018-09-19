@@ -13,15 +13,15 @@ $( document ).ready(function () {
     var $imgsWithIds;
 
     // An array of topics
-    var topic = ['batman', 'spiderman', 'jumanji']
+    var topic = ['batman', 'spiderman', 'cool']
 
     // Starts the app
     function startApp() {
         
         // Create boxes for images (10 by default)
-        createImgBox();
+        createImgPanel();
         $('.panel').hide();
-        getImgBox();
+        getUpdatedDomElems();
 
         // Sets numImages to the dropdown selection
         $numOfImg.change(function() {
@@ -33,11 +33,11 @@ $( document ).ready(function () {
         $addGifBtn.on('click', addGif);
         $gifContainer.on('click', 'button', displayGifs);
         $imgContainer.on('click', 'img', animateGifs);
-        renderBtn();
+        renderButton();
     }
 
     // Gets current images from DOM and filter ones with id
-    function getImgBox() {
+    function getUpdatedDomElems() {
         $imgs = $('img');
         $imgsRating = $('.rating');
         $imgsTitle = $('.title');
@@ -55,15 +55,16 @@ $( document ).ready(function () {
 
     // Adds and create new topic button if it doesn't exist in the topic array
     function addGif() {
-        if (topic.indexOf($addGif.val()) === -1 && $addGif.val() != '') {
+        if (topic.indexOf(($addGif.val()).toLowerCase()) === -1 && $addGif.val() != '') {
             topic.push($addGif.val());
             $gifContainer.empty();
-            renderBtn();
+            renderButton();
         } 
+        $addGif.val("");
     }
 
     // Renders buttons for each topic in topic array
-    function renderBtn() {
+    function renderButton() {
         for (i = 0; i < topic.length; i++) {
             newBtn = $('<button>');
             newBtn.addClass('btn btn-primary');
@@ -74,7 +75,7 @@ $( document ).ready(function () {
     }
 
     // Creates divs that contains panels, imgs with id, class, attr
-    function createImgBox() {
+    function createImgPanel() {
         
         $imgContainer.empty();
 
@@ -105,13 +106,13 @@ $( document ).ready(function () {
             newPanelFooter.append(rating);
         }
 
-        getImgBox();
+        getUpdatedDomElems();
     }
 
     // Display Gifs by making Ajax call to the GIPHY API
     function displayGifs() {
         $('.panel').show();
-        createImgBox();
+        createImgPanel();
         var title = $(this).attr('data-topic').split(' ').join('+');
         var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=D41gIqTe2XuLnlhr8V93REZDOSxjwvCx&q=' + title + '&limit='+numImages+'&offset=0&rating=G&lang=en';
     
@@ -147,7 +148,7 @@ $( document ).ready(function () {
         if (state === 'still') {
             thisImg.attr('src', thisImg.attr('data-animate'));
             thisImg.attr('data-state', 'animate');
-          } else if (state === 'animate') {
+        } else if (state === 'animate') {
             thisImg.attr('src', thisImg.attr('data-still'));
             thisImg.attr('data-state', 'still');
         }
