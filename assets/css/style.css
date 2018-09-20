@@ -11,6 +11,10 @@ body {
     color: aqua;
 }
 
+#brand-logo:hover {
+    text-shadow: 5px 5px 20px hotpink;
+}
+
 #add-gif-container {
     width: 50%
 }
