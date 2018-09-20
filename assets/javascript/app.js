@@ -12,13 +12,13 @@ $( document ).ready(function () {
     var $imgsRating;
     var $imgsWithIds;
 
-    // An array of topics
-    var topic = ['batman', 'spiderman', 'cool']
+    // Declare an array of topics
+    var topic = ['funny cats', 'silly dogs', 'peanut butter jelly time', 'i like turtles']
 
-    // Starts the app
+    // Function to start the app
     function startApp() {
         
-        // Create boxes for images (10 by default)
+        // Create panels for images (10 by default)
         createImgPanel();
         $('.panel').hide();
         getUpdatedDomElems();
@@ -28,15 +28,17 @@ $( document ).ready(function () {
             numImages = this.value;
         });
 
-        // Start event listeners and render buttons
+        // Start all event listeners
         $addGif.on('keydown', enterKeyToAdd);
         $addGifBtn.on('click', addGif);
         $gifContainer.on('click', 'button', displayGifs);
         $imgContainer.on('click', 'img', animateGifs);
+
+        // Render buttons in topic array
         renderButton();
     }
 
-    // Gets current images from DOM and filter ones with id
+    // Gets current DOM Elements on the page
     function getUpdatedDomElems() {
         $imgs = $('img');
         $imgsRating = $('.rating');
@@ -46,7 +48,7 @@ $( document ).ready(function () {
         });
     }
 
-    // Allows user to use enter for input
+    // Allows user to use 'enter' key to add topics
     function enterKeyToAdd(event) {
         if (event.keyCode === 13) {
             addGif();
@@ -55,12 +57,18 @@ $( document ).ready(function () {
 
     // Adds and create new topic button if it doesn't exist in the topic array
     function addGif() {
-        if (topic.indexOf(($addGif.val()).toLowerCase()) === -1 && $addGif.val() != '') {
-            topic.push($addGif.val());
+
+        // Convert topic from input to lowercase
+        var topicLowerCase = $addGif.val().toLowerCase();
+
+        // Check if input is already in the 'topic' array and NOT empty
+        // If true, add to 'topic' array, wiped out buttons, re-render all buttons
+        if (topic.indexOf(topicLowerCase) === -1 && $addGif.val() != '') {
+            topic.push(topicLowerCase);
             $gifContainer.empty();
             renderButton();
         } 
-        $addGif.val("");
+        $addGif.val('');
     }
 
     // Renders buttons for each topic in topic array
@@ -74,7 +82,7 @@ $( document ).ready(function () {
         }  
     }
 
-    // Creates divs that contains panels, imgs with id, class, attr
+    // Creates new panels where images will go in
     function createImgPanel() {
         
         $imgContainer.empty();
@@ -105,7 +113,7 @@ $( document ).ready(function () {
             newPanelHeading.append(title);
             newPanelFooter.append(rating);
         }
-
+        // Call function to grab new DOM elements
         getUpdatedDomElems();
     }
 
@@ -113,9 +121,22 @@ $( document ).ready(function () {
     function displayGifs() {
         $('.panel').show();
         createImgPanel();
+
+        // Sets title to data-topic value, replace spce with '+'
         var title = $(this).attr('data-topic').split(' ').join('+');
-        var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=D41gIqTe2XuLnlhr8V93REZDOSxjwvCx&q=' + title + '&limit='+numImages+'&offset=0&rating=G&lang=en';
-    
+        var queryURL = "https://api.giphy.com/v1/gifs/search";
+
+        // Add parameters to base queryURL
+        queryURL += '?' + $.param({
+            'api_key': "D41gIqTe2XuLnlhr8V93REZDOSxjwvCx",
+            'q': title,
+            'limit': numImages,
+            'offset': "0",
+            'rating': "G",
+            'lang': "en"
+        });
+        
+        // Make the ajax call and add the images to the page
         $.ajax({
             url: queryURL,
             method: 'GET'
@@ -140,7 +161,7 @@ $( document ).ready(function () {
         });   
     }
 
-    // Start and stop animate on click
+    // Start and stop animation on click
     function animateGifs() {
         var state = $(this).attr('data-state');
         var thisImg = $(this);
@@ -154,6 +175,7 @@ $( document ).ready(function () {
         }
     }
 
+    // Starts the app
     startApp();
     
 });
