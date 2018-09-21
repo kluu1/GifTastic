@@ -11,9 +11,11 @@ $( document ).ready(function () {
     var $imgsTitle;
     var $imgsRating;
     var $imgsWithIds;
+    var STILL = 'still';
+    var ANIMATE = 'animate';
 
     // Declare an array of topics
-    var topic = ['funny cats', 'silly dogs', 'peanut butter jelly time', 'i like turtles']
+    var topic = ['funny cats', 'silly dogs', 'peanut butter jelly time', 'i like turtles'];
 
     // Function to start the app
     function startApp() {
@@ -59,7 +61,7 @@ $( document ).ready(function () {
     function addGif() {
 
         // Convert topic from input to lowercase
-        var topicLowerCase = $addGif.val().toLowerCase();
+        var topicLowerCase = $addGif.val().toLowerCase().trim();
 
         // Check if input is already in the 'topic' array and NOT empty
         // If true, add to 'topic' array, wiped out buttons, re-render all buttons
@@ -73,7 +75,7 @@ $( document ).ready(function () {
 
     // Renders buttons for each topic in topic array
     function renderButton() {
-        for (i = 0; i < topic.length; i++) {
+        for (var i = 0; i < topic.length; i++) {
             newBtn = $('<button>');
             newBtn.addClass('btn btn-primary');
             newBtn.attr('data-topic', topic[i]);
@@ -97,7 +99,7 @@ $( document ).ready(function () {
             var newID = 'img-'+i;
             var title = '<p><span class="title"></span></p>';
             var rating = '<p>Rating: <span class="rating"></span></p>';
-    
+
             newBoxDiv.addClass('col-sm-6 col-md-4');
             newPanel.addClass('panel panel-primary');
             newImgContent.attr({ 'id': newID, 'data-img': i });
@@ -141,18 +143,21 @@ $( document ).ready(function () {
             url: queryURL,
             method: 'GET'
         }).then(function(res) {
-            for (i = 0; i < numImages; i++) {
-                var still = res.data[i].images.fixed_height_still.url;
-                var animate = res.data[i].images.fixed_height.url;
-                var title = res.data[i].title;
-                var rating = res.data[i].rating.toUpperCase();
+            for (var i = 0; i < numImages; i++) {
+                var dataAtIndex = res.data[i];
+                var images = dataAtIndex.images;
+                var stillImg = images.fixed_height_still.url;
+                var animateImg = images.fixed_height.url;
+                var title = dataAtIndex.title;
+                var rating = dataAtIndex.rating.toUpperCase();
                 var img = $($imgsWithIds[i]);
                 var imgsTitle = $($imgsTitle[i]);
                 var imgsRating = $($imgsRating[i]);
-                img.attr('src', still);
-                img.attr('data-still', still);
-                img.attr('data-state', 'still');
-                img.attr('data-animate', animate);
+                
+                img.attr('src', stillImg);
+                img.attr('data-still', stillImg);
+                img.attr('data-state', STILL);
+                img.attr('data-animate', animateImg);
                 imgsTitle.text(title)
                 imgsRating.text(rating);
             }
@@ -166,12 +171,12 @@ $( document ).ready(function () {
         var state = $(this).attr('data-state');
         var thisImg = $(this);
 
-        if (state === 'still') {
+        if (state === STILL) {
             thisImg.attr('src', thisImg.attr('data-animate'));
-            thisImg.attr('data-state', 'animate');
-        } else if (state === 'animate') {
+            thisImg.attr('data-state', ANIMATE);
+        } else if (state === ANIMATE) {
             thisImg.attr('src', thisImg.attr('data-still'));
-            thisImg.attr('data-state', 'still');
+            thisImg.attr('data-state', STILL);
         }
     }
 
