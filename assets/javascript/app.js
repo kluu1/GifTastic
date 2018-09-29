@@ -153,11 +153,14 @@ $( document ).ready(function () {
                 var img = $($imgsWithIds[i]);
                 var imgsTitle = $($imgsTitle[i]);
                 var imgsRating = $($imgsRating[i]);
-                
-                img.attr('src', stillImg);
-                img.attr('data-still', stillImg);
-                img.attr('data-state', STILL);
-                img.attr('data-animate', animateImg);
+
+                img.attr({
+                    'src': stillImg,
+                    'data-still': stillImg,
+                    'data-state': STILL,
+                    'data-animate': animateImg
+                });
+
                 imgsTitle.text(title)
                 imgsRating.text(rating);
             }
