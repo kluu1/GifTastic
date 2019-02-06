@@ -6,6 +6,9 @@ Live Demo: https://kluu1.github.io/GifTastic-App/
 - Users can also add more topics
 - Each gif will display its rating (PG, G, so on)
 
+## Preview
+![Alt text](/screenshot.png?raw=true "giftastic")
+
 ## Design Notes
 - There is an array called 'topic' that holds all the topics for the app.
 - On startup, the app will loop through the topics and create a button for each topic.
